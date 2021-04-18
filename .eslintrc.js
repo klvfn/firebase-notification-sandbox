@@ -16,7 +16,8 @@ module.exports = {
   env: {
     browser: true,
     amd: true,
-    node: true
+    node: true,
+    serviceworker: true
   },
   extends: [
     'plugin:@typescript-eslint/eslint-recommended',

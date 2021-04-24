@@ -1,12 +1,13 @@
 import firebase from 'firebase/app'
 import 'firebase/messaging'
+import config from '../../config'
 
 // Firebase Client
 const firebaseConfig = {
-  apiKey: 'AIzaSyCKwr1ziLlwGwemjpcezdp-ND5VaXvir58',
-  projectId: 'fir-notification-sandbox',
-  messagingSenderId: '716286023465',
-  appId: '1:716286023465:web:350c383b3c1bfbd7074938'
+  apiKey: config.apiKey,
+  projectId: config.projectId,
+  messagingSenderId: config.messagingSenderId,
+  appId: config.appId
 }
 
 const getFirebaseApp = (): firebase.app.App => {

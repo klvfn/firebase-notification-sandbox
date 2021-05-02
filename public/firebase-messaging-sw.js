@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
 importScripts('https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js')
 importScripts('https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js')
@@ -12,32 +13,39 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 const fcm = firebase.messaging()
 
-const showNotification = (payload) => {
+const buildNotification = (payload) => {
   const { body, image, title, data, icon, actions } = payload
+  const notification = {}
   if (title && body) {
-    const notificationTitle = title
-    const notificationOptions = {
+    notification.title = title
+    notification.options = {
       body,
       icon,
       image,
       data,
       actions
     }
-    this.registration.showNotification(notificationTitle, notificationOptions)
   }
+  return notification
 }
 
 // Handle background notification
 fcm.onBackgroundMessage((payload) => {
-  showNotification(payload.notification)
+  const { title, options } = buildNotification(payload.notification)
+  if (title && options) {
+    self.registration.showNotification(title, options)
+  }
 })
 
 // Handle foreground notification
-this.addEventListener('message', (e) => {
-  showNotification(e.data.notification)
+self.addEventListener('message', (event) => {
+  const { title, options } = buildNotification(event.data.notification)
+  event.waitUntil(self.registration.showNotification(title, options))
 })
 
-this.addEventListener('notificationclick', (event) => {
+// Handle notification click
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close()
   // Currently click action only support going to a specific url
   let destURL = ''
 
@@ -53,8 +61,6 @@ this.addEventListener('notificationclick', (event) => {
   }
 
   if (destURL) {
-    clients.openWindow(destURL)
+    event.waitUntil(clients.openWindow(destURL))
   }
-
-  event.notification.close()
 })

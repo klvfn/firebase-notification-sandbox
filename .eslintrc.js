@@ -15,7 +15,6 @@ module.exports = {
   },
   env: {
     browser: true,
-    amd: true,
     node: true,
     serviceworker: true
   },

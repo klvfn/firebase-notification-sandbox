@@ -31,9 +31,11 @@ const CustomNotification: NextPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setValue
   } = useForm<FormInputs>({
-    resolver: yupResolver(validationSchema)
+    resolver: yupResolver(validationSchema),
+    mode: 'onChange'
   })
   const [isShowFields, setIsShowFields] = useState(false)
   const { mutate, isLoading } = useCreateNotification()
@@ -98,7 +100,18 @@ const CustomNotification: NextPage = () => {
           </div>
 
           <span
-            onClick={() => setIsShowFields(!isShowFields)}
+            onClick={() => {
+              setIsShowFields(!isShowFields)
+              setValue('icon', '', {
+                shouldValidate: true
+              })
+              setValue('image', '', {
+                shouldValidate: true
+              })
+              setValue('url', '', {
+                shouldValidate: true
+              })
+            }}
             className='flex flex-col mt-8 text-center text-green-400 font-bold cursor-pointer hover:text-green-500 duration-200'>
             {isShowFields ? (
               <span className='flex justify-center items-center'>

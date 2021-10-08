@@ -8,8 +8,8 @@ Firebase Notification Sandbox is a site that enable you to easily test push noti
 - [React Hook Form](https://react-hook-form.com/)
 - [Firebase](https://firebase.google.com/)
 
-## Getting Started
-Coming Soon :rocket:
+## Live Website 🚀
+Live at [Firebase Notification Sandbox](https://firebase-notification-sandbox-klvfn.vercel.app/)
 
 
 
